@@ -1,0 +1,163 @@
+body {
+    margin: 0;
+    background-color: #EEE;
+}
+
+.adicionar {
+	margin: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: blue;
+	background-color: white;
+	border-collapse: collapse;
+	width: 200px;
+	height: 30px;
+	line-height: 30px;
+	font-weight: bold;
+	border-radius: 5px;
+	color: black;
+
+}
+
+.adicionar:hover{
+	background-color: #b3ccf2;
+}
+
+a {
+	text-decoration: none;
+}
+
+#sair {
+	margin: 15px;
+	padding: 5px;
+	width: 60px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#logout{
+	text-align: center;
+}
+
+#sair:hover{
+	background-color: #4f4646;
+	color: white;
+}
+table {
+	border-width: 1px;
+	border-spacing: 0px;
+	border-style: solid;
+	border-color: blue;
+	border-collapse: collapse;
+	background-color: white;
+	width: 90%;
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+
+}
+table th {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: blue;
+	background-color: white;
+	border-radius: 10px;
+}
+table td {
+	border-width: 1px;
+	padding: 1px;
+	border-style: solid;
+	border-color: blue;
+	background-color: white;
+}
+
+#acessar{
+   	margin: 15px;
+	padding: 5px;
+	width: 80px;
+    font-size: 13px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+#acessar:hover{
+	background-color: #4f4646;
+	color: white;
+}
+
+#login input {
+	height: 30px;
+	font-size: 15px;
+	text-align: center;
+	border-radius: 8px;
+}
+
+#login {
+    width: 250px;
+    height:150px;
+    background-color: #DDD;
+    margin: auto;
+    padding: 20px;
+    margin-top: 100px;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.submit {
+    text-align: center;
+}
+
+#form1,
+#form2 {
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#form1 input{
+	width: 35%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 15px;
+	text-align: center;
+	margin-top: 5px;
+}
+
+#form2 input{
+	width: 35%;
+	height: 30px;
+	line-height: 30px;
+	font-size: 15px;
+	text-align: center;
+	margin-top: 5px;
+}
+
+input#cadastrar{
+	margin: 15px;
+	width: 120px;
+	height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+input#atualizar{
+	margin: 15px;
+	width: 120px;
+	height: 30px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+h2 {
+	text-align: center;
+}
