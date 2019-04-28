@@ -15,6 +15,14 @@ if (isset($_SESSION['id']) && empty($_SESSION['id']) == false) {
 <body>
 	<div>
 		<div class="adicionar"><a href="adicionar.php">Cadastrar Novo Usuário</a></div>
+		<div class="aviso">
+			<?php
+		        if (isset($_SESSION['msg'])) {
+		            echo $_SESSION['msg'];
+		            unset($_SESSION['msg']);
+		        }
+	        ?>	
+		</div>
 		<table>
 			<tr>
 				<th>ID</th>

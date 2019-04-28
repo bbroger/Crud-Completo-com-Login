@@ -1,6 +1,6 @@
 <?php 
 	require_once 'conexaoPDO.php';
-
+	session_start();
 	$id = 0;
 
 	if(isset($_GET['id']) && empty($_GET['id']) == false){
@@ -29,7 +29,7 @@
 	 
 	    	// Verifica se o arquivo é uma imagem
 	    	if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $foto["type"])){
-	     	   $error[1] = "Isso não é uma imagem.";
+	     	   $error[1] = "A imagem deve estar no formato: jpeg, pjpeg, png, gif ou bmp";
 	   	 	} 
 		
 			// Pega as dimensões da imagem
@@ -77,12 +77,13 @@
 				$stmt = $pdo ->query($sql);
 			}
 		} else {
-
-
+			$_SESSION['msg'] = "<p style='color:red;'>Erro na atualização, tente novamente...</p>";
+			header("Location: index.php");
 		}
 		if (count($error) != 0) {
 				foreach ($error as $erro) {
-					echo $erro . "<br />";
+					$_SESSION['msg'] = "<p style='color:red;'> Erro na atualização: $erro.</p>"; 
+					header("Location: index.php");
 				}
 		}else{
 			$sql = "UPDATE usuarios SET 
@@ -92,7 +93,9 @@
 						dt_nascimento = '$data'
 					WHERE id = '$id'";
 
-				$stmt = $pdo ->query($sql);
+				$stmt = $pdo ->query($sql); 
+				
+				$_SESSION['msg'] = "<p style='color:green;'>Atualização realizada com sucesso</p>";
 				header("Location: index.php");
 			}
 	}
@@ -104,6 +107,7 @@
 		$dado = $stmt -> fetch();
 		$data = date("d/m/Y",strtotime(str_replace('-','/',$dado['dt_nascimento'])));
 	}else{
+		$_SESSION['msg'] = "<p style='color:red;'>Erro na atualização, tente novamente...</p>";
 		header("Location: index.php");
 	}
 ?>
