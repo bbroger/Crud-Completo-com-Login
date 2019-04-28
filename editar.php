@@ -52,7 +52,7 @@
 	 
 			// Se não houver nenhum erro
 			if (count($error) == 0) {
-				echo "entrou no segundo if";
+
 				// Pega extensão da imagem
 				preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
 	 
@@ -75,15 +75,26 @@
 							";
 
 				$stmt = $pdo ->query($sql);
-			} 
-			if (count($error) != 0) {
+			}
+		} else {
+
+
+		}
+		if (count($error) != 0) {
 				foreach ($error as $erro) {
 					echo $erro . "<br />";
 				}
-			}else{
+		}else{
+			$sql = "UPDATE usuarios SET 
+						nome = '$nome',
+						email = '$email',
+						senha = '$senha',
+						dt_nascimento = '$data'
+					WHERE id = '$id'";
+
+				$stmt = $pdo ->query($sql);
 				header("Location: index.php");
 			}
-		}
 	}
 
 	$sql = "SELECT * FROM usuarios WHERE id = '$id'";

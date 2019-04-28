@@ -4,7 +4,7 @@
 
 $dsn = "mysql:dbname=b7web;host=localhost;charset=utf8";//qual banco de dados será utilizado, nome do banco, local do banco
 $dbuser = "root";
-$dbpass = "";
+$dbpass = "14725800Ro@";
 
 try {
 	$pdo = new PDO($dsn, $dbuser, $dbpass);
