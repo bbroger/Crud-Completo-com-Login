@@ -8,12 +8,70 @@
 		$senha = md5(addslashes($_POST['senha']));
 		$dt_nascimento = addslashes($_POST['dtNascimento']);
 		$data = date("Y-m-d",strtotime(str_replace('/','-',$dt_nascimento)));
+		$foto = $_FILES['arquivo'];
 
-		$sql = "INSERT INTO usuarios SET nome = '$nome', email = '$email',
-				senha = '$senha', dt_nascimento = STR_TO_DATE('$data', '%Y-%m-%d')";
-		$sql = $pdo ->query($sql);
+		// Se a foto estiver sido selecionada
+		if (!empty($foto["name"])) {
+			// Largura máxima em pixels
+			$largura = 150;
+			// Altura máxima em pixels
+			$altura = 180;
+			// Tamanho máximo do arquivo em bytes
+			$tamanho = 250000;
+	 
+			$error = array();
+	 
+	    	// Verifica se o arquivo é uma imagem
+	    	if(!preg_match("/^image\/(pjpeg|jpeg|png|gif|bmp)$/", $foto["type"])){
+	     	   $error[1] = "Isso não é uma imagem.";
+	   	 	} 
+		
+			// Pega as dimensões da imagem
+			$dimensoes = getimagesize($foto["tmp_name"]);
+		
+			// Verifica se a largura da imagem é maior que a largura permitida
+			if($dimensoes[0] > $largura) {
+				$error[2] = "A largura da imagem não deve ultrapassar ".$largura." pixels";
+			}
+	 
+			// Verifica se a altura da imagem é maior que a altura permitida
+			if($dimensoes[1] > $altura) {
+				$error[3] = "Altura da imagem não deve ultrapassar ".$altura." pixels";
+			}
+			
+			// Verifica se o tamanho da imagem é maior que o tamanho permitido
+			if($foto["size"] > $tamanho) {
+	   		 	$error[4] = "A imagem deve ter no máximo ".$tamanho." bytes";
+			}
+	 
+			// Se não houver nenhum erro
+			if (count($error) == 0) {
+			
+				// Pega extensão da imagem
+				preg_match("/\.(gif|bmp|png|jpg|jpeg){1}$/i", $foto["name"], $ext);
+	 
+	        	// Gera um nome único para a imagem
+	        	$nome_imagem = md5(uniqid(time())) . "." . $ext[1];
+	 
+	        	// Caminho de onde ficará a imagem
+	        	$caminho_imagem = "assets/fotos/" . $nome_imagem;
+	 
+				// Faz o upload da imagem para seu respectivo caminho
+				move_uploaded_file($foto["tmp_name"], $caminho_imagem);	
 
-		header("Location: index.php");
+				$sql = "INSERT INTO usuarios SET nome = '$nome', email = '$email',
+				senha = '$senha', dt_nascimento = STR_TO_DATE('$data', '%Y-%m-%d'), foto = '$nome_imagem'";
+				$sql = $pdo ->query($sql);
+
+				if (count($error) != 0) {
+					foreach ($error as $erro) {
+					echo $erro . "<br />";
+					}
+				}else{
+					header("Location: index.php");
+				}
+			}
+		}
 	}
 
 ?>
@@ -25,8 +83,9 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 	<body>
+		<div id="voltar"><a href="index.php">VOLTAR</a></div>
 		<h2>Cadastrar novo usuário</h2>
-		<form method="POST" id="form1">
+		<form method="POST" id="form1" enctype="multipart/form-data">
 			Nome:<br />
 			<input type="text" name="nome" required="required" /><br />
 			Email:<br />
@@ -35,7 +94,9 @@
 			<input type="password" name="senha" required="required" /><br />
 			Dt.Nascimento:<br />
 			<input type="date" name="dtNascimento" required="required" /><br /><br />
-
+			Foto:<br />
+			<input type="file" name="arquivo" /><br /><br />
+			
 			<input type="submit" value="Cadastrar" id="cadastrar" />
 
 		</form>
